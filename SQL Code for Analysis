@@ -1,0 +1,40 @@
+-- You can use this code to find insights which answered business questions.
+
+-- (1) pricing trends across neighbourhood
+-- (2) Room Type Popularity
+
+SELECT * FROM sql_airbnb
+
+SELECT neighbourhood_group_latest, neighbourhood, AVG(price) AS avg_price
+FROM sql_airbnb
+GROUP BY 1, 2
+ORDER BY avg_price DESC
+
+-- Insight
+-- New Dorp and Chelsea has the highest avg Price
+-- Woodside has the lowest avg Price
+
+--Next -> Which property is giving New Dorp and chelsea the highest price?
+
+SELECT id, name, neighbourhood price
+FROM sql_airbnb
+WHERE neighbourhood IN ('New Dorp', 'Chelsea, Staten Island')
+ORDER BY price DESC
+
+--Most Expensive properties : Tranquil retreat outside NYC and Staten Island Studio
+
+-- ROOM TYPE POPULARITY
+
+SELECT room_type, COUNT(DISTINCT id) AS count_properties
+, round(avg(review_rate_number), 3) AS avg_rating
+, round(avg(price), 2) AS avg_price
+FROM sql_airbnb
+GROUP BY 1
+
+-- Hosts prefer putting Entire homes but customer like hotel rooms more
+-- probable reason being that hotels are well built compared to homes and
+-- they taken care of more
+
+
+
+-- Booking Pattern and availability
